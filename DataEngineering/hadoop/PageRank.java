@@ -34,7 +34,7 @@ public class PageRank
 
                         itr.nextToken();
                         while(itr.hasMoreTokens())
-{
+                        {
                                 one_key.set(Integer.parseInt(itr.nextToken()));
                                 context.write(one_key, one_value);
                         }
@@ -107,7 +107,7 @@ public class PageRank
                 job.setOutputValueClass(DoubleWritable.class);
                 job.setInputFormatClass(TextInputFormat.class);
                 FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
-FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+                FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
                 FileSystem.get(job.getConfiguration()).delete( new Path(otherArgs[1]), true);
                 job.waitForCompletion(true);
                 updatePageRank(conf, n_pages);
