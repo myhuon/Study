@@ -71,7 +71,7 @@ public class MatrixMul
                         int row_id = Integer.parseInt( itr.nextToken().trim() );
                         int col_id = Integer.parseInt( itr.nextToken().trim() );
 
-for (IntWritable val : values){
+                        for (IntWritable val : values){
                                 mul *= val.get();
                                 word.set( row_id + "," + col_id );
                                 result.set(mul);
@@ -106,7 +106,7 @@ for (IntWritable val : values){
                 public void reduce(Text key, Iterable<IntWritable> values, Context context)throws IOException, InterruptedException
                 {
                         int add = 0;
-for (IntWritable val : values)
+                        for (IntWritable val : values)
                         {
                                 add += val.get();
                         }
@@ -142,7 +142,7 @@ for (IntWritable val : values)
 
                 job1.setMapperClass(MatrixMulMapper1.class);
                 job1.setReducerClass(MatrixMulReducer1.class);
-job1.setOutputKeyClass(Text.class);
+                job1.setOutputKeyClass(Text.class);
                 job1.setOutputValueClass(IntWritable.class);
 
                 FileInputFormat.addInputPath(job1, new Path(otherArgs[0]));
