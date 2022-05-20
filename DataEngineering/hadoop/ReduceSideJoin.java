@@ -35,7 +35,7 @@ public class ReduceSideJoin
                    else{
                         joinKey = itr.nextToken();
                         String description = itr.nextToken();
-o_value = "B," + description;
+                        o_value = "B," + description;
                    }
 
                    outputKey.set(joinKey);
@@ -71,7 +71,7 @@ o_value = "B," + description;
                                         description = itr.nextToken();
                                 }
                                 else {
-String id = itr.nextToken();
+                                        String id = itr.nextToken();
                                         String price = itr.nextToken();
 
                                         if ( description.length() == 0 ) {
