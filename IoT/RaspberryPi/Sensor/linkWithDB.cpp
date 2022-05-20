@@ -37,7 +37,6 @@
 #define LIGHTSEN_OUT 0  // BCM 17 - J12 connect
 
 //#define MOTION_IN 2  // J13 Connector - motionDetect
-
 #define COLLISION 3  // J14 connect - nearDetect
 #define SPI_CHANNEL 0 // There are two soft channels in wPi library, which depend on CE0 or CE1  
 #define SPI_SPEED 1000000 //1Mhz
