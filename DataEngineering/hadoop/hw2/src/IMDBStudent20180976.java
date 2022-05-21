@@ -126,10 +126,7 @@ public class IMDBStudent20180976
                 private PriorityQueue<MovieRating> queue ;
                 private Comparator<MovieRating> comp = new RatingComparator();
                	int topK;
-		
-		private Text topk_result_key;
-		private	Text topk_result_value;
-                
+
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException
                 {
 			StringTokenizer itr = new StringTokenizer(value.toString(), "::");
@@ -151,12 +148,6 @@ public class IMDBStudent20180976
 			while( queue.size() != 0 )
                         {
                                 MovieRating mv = (MovieRating) queue.remove();
-				
-			//	StringTokenizer itr = new StringTokenizer(mv.getString(), "::");
-			//	topk_result_key.set(itr.nextToken());
-			//	topk_result_value.set(itr.nextToken());
-                                
-				//context.write(topk_result_key, topk_result_value);
 				context.write(new Text(mv.getString()), NullWritable.get());
                         }
                 }
@@ -167,18 +158,9 @@ public class IMDBStudent20180976
                 private PriorityQueue<MovieRating> queue ;
                 private Comparator<MovieRating> comp = new RatingComparator();
                 private int topK;
-	
-		private Text topk_result_key;
-		private	Text topk_result_value;
 
                 public void reduce(Text key, Iterable<NullWritable> values, Context context) throws IOException, InterruptedException
                 {
-                        //StringTokenizer itr = new StringTokenizer(key.toString(), "::");
-                       	/*String title = key.toString();
-			for(Text val : values){
-                        	double avgRating = Double.parseDouble(val.toString());
-                        	insertMovieRating(queue, title, avgRating, topK);
-			}*/
 			StringTokenizer itr = new StringTokenizer(key.toString(), "::");
                         String title = itr.nextToken().trim();
                         double avgRating = Double.parseDouble(itr.nextToken().trim());
@@ -198,14 +180,7 @@ public class IMDBStudent20180976
                         while( queue.size() != 0 )
                         {
                                 MovieRating mv = (MovieRating) queue.remove();
-				
-				//StringTokenizer itr = new StringTokenizer(mv.getString(), "::");
-				//topk_result_key.set(itr.nextToken());
-				//topk_result_value.set(itr.nextToken());
-                                
-				//context.write(topk_result_key, topk_result_value);
 				context.write(new Text(mv.getTitle()), new Text(Double.toString(mv.getRating())));
-				//context.write(new Text(mv.getString()), NullWritable.get());
                         }
                 }
 	}
@@ -226,14 +201,11 @@ public class IMDBStudent20180976
                 Job job = new Job(conf, "IMDB");
                 job.setJarByClass(IMDBStudent20180976.class);
                 job.setMapperClass(ReduceSideJoinMapper.class);
-                job.setReducerClass(ReduceSideJoinReducer.class);
-                
+                job.setReducerClass(ReduceSideJoinReducer.class);               
 		job.setOutputKeyClass(NullWritable.class);
-                job.setOutputValueClass(Text.class);
-		
+                job.setOutputValueClass(Text.class);		
 		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(Text.class);
-                
+		job.setMapOutputValueClass(Text.class);            
 		FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
                 FileOutputFormat.setOutputPath(job, new Path(firstOutput));
                 FileSystem.get(job.getConfiguration()).delete( new Path(firstOutput), true);
@@ -244,10 +216,8 @@ public class IMDBStudent20180976
                 job2.setMapperClass(TopKMapper.class);
                 job2.setReducerClass(TopKReducer.class);
                 job2.setNumReduceTasks(1);
-
 		job2.setMapOutputKeyClass(Text.class);
 		job2.setMapOutputValueClass(NullWritable.class);
-
                 job2.setOutputKeyClass(Text.class);
                 job2.setOutputValueClass(Text.class);
                 FileInputFormat.addInputPath(job2, new Path(firstOutput));
