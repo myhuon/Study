@@ -18,9 +18,19 @@ public class MovieRating {
                         this.title = title;
                 }
 
+		public String getTitle()
+		{
+			return title;
+		}
+
+		public double getRating()
+		{
+			return rating;
+		}
+
 
                 public String getString()       // use in map output
                 {
-                        return title + " " + Double.toString(rating);
+                        return title + "::" + Double.toString(rating);
                 }
-        }
+}
