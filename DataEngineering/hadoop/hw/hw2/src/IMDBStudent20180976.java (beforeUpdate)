@@ -1,3 +1,39 @@
+public static class MovieRating {
+                public String userId;
+                public String movieId;
+                public double rating;
+                public String title;
+
+                public MovieRating(String userId, String movieId, double rating, String title)
+                {
+                        this.userId = userId;
+                        this.movieId = movieId;
+                        this.rating = rating;
+                        this.title = title;
+                }
+
+                public MovieRating(String title, double rating)
+                {
+                        this.rating = rating;
+                        this.title = title;
+                }
+
+                public String getTitle()
+                {
+                        return title;
+                }
+
+                public double getRating()
+                {
+                        return rating;
+                }
+
+
+                public String getString()       // use in map output
+                {
+                        return title + "::" + Double.toString(rating);
+                }
+        }
 import java.io.IOException;
 import java.util.*;
 
