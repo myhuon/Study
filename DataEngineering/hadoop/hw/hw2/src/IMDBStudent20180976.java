@@ -53,7 +53,7 @@ public class IMDBStudent20180976
                         String filename = ((FileSplit)context.getInputSplit()).getPath().getName();
 
                         if(filename.indexOf("movies.txt") != -1) fileA = true;
-                        else fileA = false;
+                        else if(filename.indexOf("rating.txt") != -1) fileA = false;
                 }
         }
 
