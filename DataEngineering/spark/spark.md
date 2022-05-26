@@ -5,8 +5,8 @@
 </br>
 
 ## 💡 Spark 실행 
-### spark-submit --class className build/spark-project.jar inputFileName outputFileName
-!! 여기서 파라미터로 input output을 받았다면, 이 input, output들은 hadoop dfs상에 저장된 input 파일명과 저장될 output 파일명이다.
+### spark-submit --class className [full Path/build/spark-project.jar] inputFileName outputFileName
+!! 여기서 파라미터로 input output을 받았다면, 이 input, output들은 local 파일명이다.
 
 </br>
 
