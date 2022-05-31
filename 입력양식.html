@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title>입력양식</title>
+ </head>
+ <body>
+ <h3>20180976 송현수</h3>
+ <fieldset>
+	<legend>회원가입 양식</legend>
+	<form action="save.jsp" method="post" enctype="multipart/form-data">
+
+	<label for="userid">아이디</label>
+	<input type="text" name="userID" size="14" maxlength="14" id="userID"><br>
+	<label for="userpw">비밀번호</label>
+	<input type="password" name="userPW" id="userpw"><br>
+
+	<label for="female">여성
+	<input type="radio" name="gender" value="female" id="female">
+	</label>
+
+	<label for="male">남성
+	<input type="radio" name="gender" value="male" id="male">
+	</label><br>
+
+	<label for="game">게임
+	<input type="checkbox" name="hobby" value="게임" id="game">
+	</label>
+
+	<label for="movie">영화보기
+	<input type="checkbox" name="hobby" value="영화보기" id="movie">
+	</label>
+
+	<label for="excercise">운동
+	<input type="checkbox" name="hobby" value="운동" id="excercise">
+	</label><br><br>
+
+	<label for="introduce">자기소개</label><br>
+	<textarea name="readme" rows="10" cols="60" id="introduce"></textarea><br>
+
+	<label for="grade">학년</label>
+	<select name="class" id="grade">
+		<option value="1">1학년</option>
+		<option value="2">2학년</option>
+		<option value="3">3학년</option>
+		<option value="4">4학년</option>
+	</select><br>
+
+	<label for="file">파일첨부</label>
+	<input type="file" accept="image/ipg, image/gif" id="file"><br>
+
+	<label for="date">Date</label>
+	<input type="date" name="Date" value="날짜" id="date"><br>
+
+	<label for="datetime">Datetime</label>
+	<input type="datetime" name="Datetime" value="날짜/시간" id="datetime"><br>
+	
+	<label for="local">Datetime-Local</label>
+	<input type="datetime-local" name="Local" value="현지시간" id="local"><br>
+
+	<label for="month">Month</label>
+	<input type="month" name="Month" value="달" id="month"><br>
+
+	<label for="time">Week</label>
+	<input type="time" name="Time" value="시간" id="time"><br>
+
+	<label for="week">Week</label>
+	<input type="week" name="Week" value="주" id="week"><br>
+
+	<label for="color">좋아하는 색상</label>
+	<input type="color" name="PreferColor" value="색깔" id="color"><br>
+
+	<label for="mail">이메일 주소</label>
+	<input type="mail" name="MailAdress" value="메일주소" id="mail"><br>
+	
+	<label for="tel">전화번호</label>
+	<input type="tel" name="Number" value="전화번호" id="tel"><br>
+
+	<label for="search">검색어</label>
+	<input type="search" name="Word" value="검색어" id="search"><br>
+
+	<label for="range">범위</label>
+	<input type="range" name="Range" value="범위" id="range"><br>
+
+	<label for="code">숫자</label>
+	<input type="number" name="Code" value="숫자" id="code"><br>
+
+	<label for="address">홈페이지</label>
+	<input type="url" name="Address" value="홈페이지 주소" id="address"><br>
+
+		<input type="submit" value="제출" />
+	</form>
+</fieldset>
+</body>
+</html>
