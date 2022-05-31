@@ -1,4 +1,4 @@
-package ±â¸»°í»ç_°úÁ¦2;
+package FileReadWrite;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class ±â¸»°í»ç_°úÁ¦2 {
+public class FileReadWrite {
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
@@ -14,7 +14,7 @@ public class ±â¸»°í»ç_°úÁ¦2 {
 				PrintWriter out = new PrintWriter(new FileWriter("out.txt"))){
 			String line;
 			int lineNumber = 1;
-			while((line = in.readLine()) != null) {//ÇÑ ÁÙ ´ÜÀ§ ÀÔÃâ·Â
+			while((line = in.readLine()) != null) {//í•œ ì¤„ ë‹¨ìœ„ ìž…ì¶œë ¥
 				out.write(" " + lineNumber + ": ");
 				out.println(line);
 				lineNumber++;
