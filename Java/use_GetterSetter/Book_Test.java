@@ -8,7 +8,7 @@ public class Book_Test {
 		int cnt = 0;
 		String title, author;
 		
-		System.out.print("Ã¥ÀÇ ±Ç¼ö>>");
+		System.out.print("ì±…ì˜ ê¶Œìˆ˜>>");
 		Scanner sc = new Scanner(System.in);
 		num = sc.nextInt();
 		sc.nextLine();
@@ -18,9 +18,9 @@ public class Book_Test {
 		for(int i = 0; i < num; i++) {		
 			bk[i] = new Book();
 			
-			System.out.print("Á¦¸ñ>>");			
+			System.out.print("ì œëª©>>");			
 			title = sc.nextLine();
-			System.out.print("ÀúÀÚ>>");
+			System.out.print("ì €ìž>>");
 			author = sc.nextLine();
 			
 			bk[i].setTitle(title);
@@ -30,18 +30,18 @@ public class Book_Test {
 			System.out.println(obj);
 		}
 		
-		System.out.print("Ã£À¸·Á´Â Ã¥ÀÇ Á¦¸ñÀº>>");
+		System.out.print("ì°¾ìœ¼ë ¤ëŠ” ì±…ì˜ ì œëª©ì€>>");
 		title = sc.nextLine();
 		
 		for(int i = 0; i < num; i++) {
 			if(title.equals(bk[i].title)) {
-				System.out.println("ÀúÀÚ´Â : "+bk[i].getAuthor());
+				System.out.println("ì €ìžëŠ” : "+bk[i].getAuthor());
 				break;
 			}
 			cnt++;
 		}
 		if(cnt == num) {
-			System.out.println("Ã£À¸·Á´Â Ã¥ÀÌ ¾ø½À´Ï´Ù.");
+			System.out.println("ì°¾ìœ¼ë ¤ëŠ” ì±…ì´ ì—†ìŠµë‹ˆë‹¤.");
 		}
 	}
 
