@@ -1,4 +1,4 @@
-package ±â¸»°í»ç_°úÁ¦1;
+package PointManage;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-public class ±â¸»°í»ç_°úÁ¦1 {
+public class PointManage {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -15,41 +15,41 @@ public class ±â¸»°í»ç_°úÁ¦1 {
 		Map<String, Costomer> m = new HashMap<>();
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("**Æ÷ÀÎÆ® °ü¸® ÇÁ·Î±×·¥ÀÔ´Ï´Ù**");
+		System.out.println("**í¬ì¸íŠ¸ ê´€ë¦¬ í”„ë¡œê·¸ë¨ì…ë‹ˆë‹¤**");
 		do {
 			int sum = 0, flg = 0;
-			System.out.print("1.ÀÔ·Â	2.»èÁ¦	3.Ãâ·Â	4.Á¾·á	¼±ÅÃÇÑ ¹øÈ£´Â>>");
+			System.out.print("1.ì…ë ¥	2.ì‚­ì œ	3.ì¶œë ¥	4.ì¢…ë£Œ	ì„ íƒí•œ ë²ˆí˜¸ëŠ”>>");
 			num = sc.nextInt();
 		
 			switch(num) {
 				case 1:
-					System.out.print("ÀÌ¸§°ú Æ÷ÀÎÆ® ÀÔ·Â>>");
+					System.out.print("ì´ë¦„ê³¼ í¬ì¸íŠ¸ ì…ë ¥>>");
 					name = sc.next();
 					point = sc.nextInt();
 					
 					for(Map.Entry<String, Costomer> s : m.entrySet()) {
-						if(name.equals(s.getKey())) {//°°Àº ÀÌ¸§ÀÌ ÀÖ´ÂÁö ÆÇº°ÇÏ±â
-							sum = Integer.parseInt(s.getValue().toString());//Costomer Å¸ÀÔÀÎ value¸¦ StringÀ¸·Î º¯È¯ÇÑ µÚ intÅ¸ÀÔÀ¸·Î º¯È¯ÇÑ´Ù
-							sum += point;//´©Àû½ÃÅ°±â
+						if(name.equals(s.getKey())) {//ê°™ì€ ì´ë¦„ì´ ìˆëŠ”ì§€ íŒë³„í•˜ê¸°
+							sum = Integer.parseInt(s.getValue().toString());//Costomer íƒ€ì…ì¸ valueë¥¼ Stringìœ¼ë¡œ ë³€í™˜í•œ ë’¤ intíƒ€ì…ìœ¼ë¡œ ë³€í™˜í•œë‹¤
+							sum += point;//ëˆ„ì ì‹œí‚¤ê¸°
 							flg = 1;
 							break;
 						}
 					}
-					if(flg == 0)//°°Àº ÀÌ¸§ÀÌ ¾øÀ¸¸é hashMap¿¡ ÀúÀå
+					if(flg == 0)//ê°™ì€ ì´ë¦„ì´ ì—†ìœ¼ë©´ hashMapì— ì €ì¥
 						m.put(name, new Costomer(point));
-					else//°°Àº ÀÌ¸§ÀÌ ÀÖÀ¸¸é ´©Àû
+					else//ê°™ì€ ì´ë¦„ì´ ìˆìœ¼ë©´ ëˆ„ì 
 						m.put(name, new Costomer(sum));
 					break;
 				case 2:
-					System.out.print("»èÁ¦ÇÏ·Á´Â ÀÌ¸§Àº>>");
+					System.out.print("ì‚­ì œí•˜ë ¤ëŠ” ì´ë¦„ì€>>");
 					name = sc.next();
 					flg = search(name, m);
 					if(flg == 1) {
 						m.remove(name);
-						System.out.println(name + "Àº(´Â) »èÁ¦µÇ¾ú½À´Ï´Ù.");
+						System.out.println(name + "ì€(ëŠ”) ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
 					}
 					else
-						System.out.println(name + "Àº(´Â) µî·ÏµÇÁö ¾ÊÀº »ç¶÷ÀÔ´Ï´Ù.");
+						System.out.println(name + "ì€(ëŠ”) ë“±ë¡ë˜ì§€ ì•Šì€ ì‚¬ëŒì…ë‹ˆë‹¤.");
 					break;
 				case 3:
 					Set<Map.Entry<String, Costomer>> entrySet = m.entrySet();
@@ -64,7 +64,7 @@ public class ±â¸»°í»ç_°úÁ¦1 {
 					System.out.println();
 					break;
 				case 4:
-					System.out.println("Á¾·áÇÏ¿´½À´Ï´Ù.");
+					System.out.println("ì¢…ë£Œí•˜ì˜€ìŠµë‹ˆë‹¤.");
 					break;
 			}
 		}while(num != 4);
