@@ -12,6 +12,6 @@ class Book {
 		return author;
 	}
 	public String toString() {
-		return "Á¦¸ñ : "+title+",  ÀúÀÚ : "+author;
+		return "ÃÂ¦Â¸Ã± : "+title+",  Ã€ÃºÃ€Ãš : "+author;
 	}
 }
