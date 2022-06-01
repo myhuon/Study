@@ -2,7 +2,7 @@ rm(list = ls()); gc()
 
 install.packages("readxl")
 library(readxl)
-df_exam <- read_excel("C:/Users/user/OneDrive/¹®¼­/csv_hw.xlsx")
+df_exam <- read_excel("C:/Users/user/OneDrive/Â¹Â®Â¼Â­/csv_hw.xlsx")
 df_exam$dept
 
 install.packages("dplyr")
