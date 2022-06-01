@@ -2,7 +2,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class test {
+public class Date {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -10,7 +10,7 @@ public class test {
 		System.out.println(d);
 		
 		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdate = new SimpleDateFormat("yyyy³â MM¿ù ddÀÏ");
+		SimpleDateFormat sdate = new SimpleDateFormat("yyyyÂ³Ã¢ MMÂ¿Ã¹ ddÃ€Ã");
 		String date = sdate.format(cal.getTime());
 		System.out.println(date);
 		
@@ -18,7 +18,7 @@ public class test {
 		int year = cal.get(Calendar.YEAR);
 		int month = cal1.get(Calendar.MONTH);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
-		String date1 = year+"³â"+month+"¿ù"+day+"ÀÏ";
+		String date1 = year+"Â³Ã¢"+month+"Â¿Ã¹"+day+"Ã€Ã";
 		System.out.println(date1);
 		
 		Date d1 = new Date();
