@@ -1,4 +1,4 @@
-sales <- data.frame(fruit = c("»ç°ú", "µþ±â", "¼ö¹Ú"),
+sales <- data.frame(fruit = c("ì‚¬ê³¼", "ë°°", "ë”¸ê¸°"),
                     price = c(1800, 1500, 3000),
                     volume = c(24, 38, 13))
 sales
