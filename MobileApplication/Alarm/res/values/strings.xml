@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">AlarmTest</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="channel_name">AlramChannel</string>
+    <string name="channel_description">기상시간을 알리는 알람 채널입니다.</string>
+
+</resources>
