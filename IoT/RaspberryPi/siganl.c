@@ -1,3 +1,9 @@
+/*
+	1번째 알람 이전 : ctrl+c default 함수 동작
+	1번째 알람 이후, 2번째 알람 이전 : ctrl+c 무시
+	2번째 알람 이후 : ctrl+c default 함수로 복귀하여 동작
+*/
+
 #include <signal.h> //Signal 사용 헤더파일
 #include <stdio.h> 
 #include <string.h> 
