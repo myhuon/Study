@@ -34,8 +34,6 @@
 #define BLUE	9
 
 #define LIGHTSEN_OUT 0  // BCM 17 - J12 connect	- lightDetect
-#define COLLISION 3  // J14 connect - nearDetect
-//#define MOTION_IN 2  // J13 Connector - motionDetect
 
 #define SPI_CHANNEL 0	// There are two soft channels in wPi library, which depend on CE0 or CE1  
 #define SPI_SPEED 1000000 //1Mhz
@@ -48,8 +46,6 @@ static int dht22_dat[5] = {0,0,0,0,0};
 int read_dht22_dat_temp();
 int read_dht22_dat_humid();
 
-int get_sounddetect_sensor();
-int get_neardetect_sensor();
 int get_temperature_sensor();
 int get_humidity_sensor();
 int get_light_sensor();
@@ -88,10 +84,8 @@ int read_mcp3208_adc(unsigned char adcChannel)
   return adcValue;
 }
 
-
 int main (void)
 {
-  int adcChannel  = 1;
   int adcValue[8] = {0};
 
   if (wiringPiSetup() == -1)
@@ -123,72 +117,35 @@ int main (void)
   
   while(1)
   {
-    char query[1024];
-      adcValue[0] = get_neardetect_sensor();
-      adcValue[1] = get_sounddetect_sensor();
+    	char query[1024];
+	  
+	adcValue[0] = get_temperature_sensor(); // Temperature Sensor
+	adcValue[1] = get_humidity_sensor(); // Humidity Sensor
+	adcValue[2] = get_light_sensor(); // Illuminance Sensor
 
-
-//     adcValue[0] = get_temperature_sensor(); // Temperature Sensor
-//     adcValue[1] = get_humidity_sensor(); // Humidity Sensor
-//     adcValue[2] = get_light_sensor(); // Illuminance Sensor
-
-// 	// In case of using the analog value from the light sensor.
-// //    adcValue[2] = read_mcp3208_adc(1); // Illuminance Sensor
-	
+ 	// In case of using the analog value from the light sensor.
+//     adcValue[2] = read_mcp3208_adc(1); // Illuminance Sensor	
 //     adcValue[3] = read_mcp3208_adc(3); // Mic Sensor
 //     adcValue[4] = read_mcp3208_adc(4); // Flame Sensor
 //     adcValue[5] = read_mcp3208_adc(5); // Acceleration Sensor (Z-Axis)
 //     adcValue[6] = read_mcp3208_adc(6); // Gas Sensor
 //     adcValue[7] = read_mcp3208_adc(7); // Distace Sensor
-    //adcValue[7] = 27*pow((double)(adcValue[7]*VCC/4095), -1.10);
+//     adcValue[7] = 27*pow((double)(adcValue[7]*VCC/4095), -1.10);
 
-    //sprintf(query,"insert into thl values (now(),%d,%d,%d)", adcValue[0],adcValue[1],adcValue[2]);
-    sprintf(query,"insert into thl values (now(),%d,%d)", adcValue[0], adcValue[1]);
+	sprintf(query,"insert into thl values (now(),%d,%d,%d)", adcValue[0],adcValue[1],adcValue[2]);
+	  
+	if(mysql_query(connector, query))
+	{
+		fprintf(stderr, "%s\n", mysql_error(connector));
+		printf("Write DB error\n");
+	}
 
-    if(mysql_query(connector, query))
-    {
-      fprintf(stderr, "%s\n", mysql_error(connector));
-      printf("Write DB error\n");
-    }
-
-    delay(3000); //1sec delay
+	delay(3000); //1sec delay
   }
 
   mysql_close(connector);
 
   return 0;
-}
-
-int get_neardetect_sensor()	// 근접 센서 digital read
-{
-
-    	int result = -1;
-
-	// display counter value every second.
-  	if(digitalRead(COLLISION) == 0){
-      		result = 0;
-    	}
-	if(digitalRead(COLLISION) == 1){
-      		result = 1;
-    	}
-
-    	printf("neardetect: %d\n", result);
-    	return result;
-}
-
-int get_sounddetect_sensor()
-{
-  	unsigned char adcChannel_sound = 0;
-	int adcValue_sound = 0;
-
-	printf("start");
-
-//	pinMode(CS_MCP3208, OUTPUT);
-	
-	adcValue_sound = read_mcp3208_adc(adcChannel_sound);
-	printf("sound = %u\n", adcValue_sound);
-		
-	return adcValue_sound;
 }
 
 int get_temperature_sensor()
@@ -218,84 +175,84 @@ int get_temperature_sensor()
 
 static uint8_t sizecvt(const int read)
 {
-  /* digitalRead() and friends from wiringpi are defined as returning a value
-  < 256. However, they are returned as int() types. This is a safety function */
+	  /* digitalRead() and friends from wiringpi are defined as returning a value
+	  < 256. However, they are returned as int() types. This is a safety function */
 
-  if (read > 255 || read < 0)
-  {
-    printf("Invalid data from wiringPi library\n");
-    exit(EXIT_FAILURE);
-  }
-  return (uint8_t)read;
+	  if (read > 255 || read < 0)
+	  {
+	    printf("Invalid data from wiringPi library\n");
+	    exit(EXIT_FAILURE);
+	  }
+	  return (uint8_t)read;
 }
 
 int read_dht22_dat_temp()
 {
-  uint8_t laststate = HIGH;
-  uint8_t counter = 0;
-  uint8_t j = 0, i;
+	  uint8_t laststate = HIGH;
+	  uint8_t counter = 0;
+	  uint8_t j = 0, i;
 
-  dht22_dat[0] = dht22_dat[1] = dht22_dat[2] = dht22_dat[3] = dht22_dat[4] = 0;
+	  dht22_dat[0] = dht22_dat[1] = dht22_dat[2] = dht22_dat[3] = dht22_dat[4] = 0;
 
-  pinMode(DHTPIN, INPUT);
-  pullUpDnControl (DHTPIN, PUD_UP);
-  delay(1);
+	  pinMode(DHTPIN, INPUT);
+	  pullUpDnControl (DHTPIN, PUD_UP);
+	  delay(1);
 
-  pinMode(DHTPIN, OUTPUT);
-  digitalWrite(DHTPIN, LOW);
-  delayMicroseconds(1100);
+	  pinMode(DHTPIN, OUTPUT);
+	  digitalWrite(DHTPIN, LOW);
+	  delayMicroseconds(1100);
 
-  // prepar
-  pinMode(DHTPIN, INPUT);
+	  // prepar
+	  pinMode(DHTPIN, INPUT);
 
-  // detect change and read data
-  for ( i=0; i< MAXTIMINGS; i++) {
-    counter = 0;
-    while (sizecvt(digitalRead(DHTPIN)) == laststate) {
-      counter++;
-      delayMicroseconds(1);
-      if (counter == 255) {
-        break;
-      }
-    }
-    laststate = sizecvt(digitalRead(DHTPIN));
+	  // detect change and read data
+	  for ( i=0; i< MAXTIMINGS; i++) {
+	    counter = 0;
+	    while (sizecvt(digitalRead(DHTPIN)) == laststate) {
+	      counter++;
+	      delayMicroseconds(1);
+	      if (counter == 255) {
+		break;
+	      }
+	    }
+	    laststate = sizecvt(digitalRead(DHTPIN));
 
-    if (counter == 255) break;
+	    if (counter == 255) break;
 
-    // ignore first 3 transitions
-    if ((i >= 4) && (i%2 == 0)) {
-      // shove each bit into the storage bytes
-      dht22_dat[j/8] <<= 1;
-      if (counter > 16)
-        dht22_dat[j/8] |= 1;
-      j++;
-    }
-  }
+	    // ignore first 3 transitions
+	    if ((i >= 4) && (i%2 == 0)) {
+	      // shove each bit into the storage bytes
+	      dht22_dat[j/8] <<= 1;
+	      if (counter > 16)
+		dht22_dat[j/8] |= 1;
+	      j++;
+	    }
+	  }
 
-  // check we read 40 bits (8bit x 5 ) + verify checksum in the last byte
-  // print it out if data is good
-  if ((j >= 40) && 
-      (dht22_dat[4] == ((dht22_dat[0] + dht22_dat[1] + dht22_dat[2] + dht22_dat[3]) & 0xFF)) ) {
-        float t, h;
-		
-        h = (float)dht22_dat[0] * 256 + (float)dht22_dat[1];
-        h /= 10;
-        t = (float)(dht22_dat[2] & 0x7F)* 256 + (float)dht22_dat[3];
-        t /= 10.0;
-        if ((dht22_dat[2] & 0x80) != 0)  t *= -1;
-		
-		ret_humid = (int)h;
-		ret_temp = (int)t;
-		printf("Humidity = %.2f %% Temperature = %.2f *C \n", h, t );
-		printf("Humidity = %d Temperature = %d\n", ret_humid, ret_temp);
-		
-    return ret_temp;
-  }
-  else
-  {
-    printf("Data not good, skip\n");
-    return 0;
-  }
+	  // check we read 40 bits (8bit x 5 ) + verify checksum in the last byte
+	  // print it out if data is good
+	  if ((j >= 40) && 
+	      (dht22_dat[4] == ((dht22_dat[0] + dht22_dat[1] + dht22_dat[2] + dht22_dat[3]) & 0xFF)) ) {
+		float t, h;
+
+		h = (float)dht22_dat[0] * 256 + (float)dht22_dat[1];
+		h /= 10;
+		t = (float)(dht22_dat[2] & 0x7F)* 256 + (float)dht22_dat[3];
+		t /= 10.0;
+		if ((dht22_dat[2] & 0x80) != 0)  t *= -1;
+
+			ret_humid = (int)h;
+			ret_temp = (int)t;
+			printf("Humidity = %.2f %% Temperature = %.2f *C \n", h, t );
+			printf("Humidity = %d Temperature = %d\n", ret_humid, ret_temp);
+
+	    return ret_temp;
+	  }
+	  else
+	  {
+	    printf("Data not good, skip\n");
+	    return 0;
+	  }
 }
 
 int get_humidity_sensor()
@@ -425,8 +382,6 @@ int get_light_sensor(void)
 	else //night
 		return 0;
 	*/
-	adcValue_light = read_mcp3208_adc(adcChannel_light);	// analog
+	adcValue_light = read_mcp3208_adc(adcChanel_light);	// analog
 	return adcValue_light;
-
 }
-
