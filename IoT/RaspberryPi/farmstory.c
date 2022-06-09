@@ -14,6 +14,8 @@
 #include <mariadb/mysql.h>
 #include <signal.h>
 
+#include "iot_db.h"
+
 #define LIGHTSEN_OUT 	0  
 #define PUMP		21 
 #define FAN		22 
@@ -36,15 +38,15 @@ int 		get_light_sensor();
 int 		read_dht22_dat_temp();
 static uint8_t 	sizecvt(const int);
 
-#define DBHOST "localhost"
+/* #define DBHOST "localhost"
 #define DBUSER "root"
-#define DBPASS "root"
+#define DBPASS "root" */
 #define DBNAME "iotfarm"
 #define TABLE  "tfarmsensorvalue"
 
-MYSQL *connector;
+/*MYSQL *connector;
 MYSQL_RES *result;
-MYSQL_ROW row;
+MYSQL_ROW row;*/
 
 int main(void)
 {
@@ -54,16 +56,15 @@ int main(void)
     Modeset();
     signal( SIGINT, (void *)sighandler );
 
-    //iot_connect_to_db(DBNAME);
-
-	//MySQL connection
-	connector = mysql_init(NULL);
-	if (!mysql_real_connect(connector, DBHOST, DBUSER, DBPASS, DBNAME, 3306, NULL, 0))
-	{
-		fprintf(stderr, "%s\n", mysql_error(connector));
-		return 0;
-	}
-	printf("MySQL(rpidb) opened.\n");
+    //MySQL connection
+    iot_connect_to_db(DBNAME);
+    /*connector = mysql_init(NULL);
+    if (!mysql_real_connect(connector, DBHOST, DBUSER, DBPASS, DBNAME, 3306, NULL, 0))
+    {
+	fprintf(stderr, "%s\n", mysql_error(connector));
+        return 0;
+    }
+    printf("MySQL(rpidb) opened.\n");*/
   
     while(1)
     {
@@ -76,14 +77,15 @@ int main(void)
 
     	sprintf(query,"insert into %s values (null, now(), now(), %d, %d, %d)", TABLE, temp_val, humid_val, light_val);
 
-	//iot_send_query( query );
-	
 	//MySQL send query
+	iot_send_query( query );
+	
+	/*
 	if(mysql_query(connector, query))
     {
       fprintf(stderr, "%s\n", mysql_error(connector));
       printf("Write DB error\n");
-    }
+    }*/
 
 
 	if( light_val == 0 )
@@ -118,9 +120,10 @@ int main(void)
     	delay(1000); 
     }
 
-    //iot_disconnect_from_db();
-	//MySQL close
-	mysql_close(connector);
+    //MySQL close
+    iot_disconnect_from_db();
+    //mysql_close(connector);
+    
     return 0;
 }
 
