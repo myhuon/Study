@@ -136,19 +136,6 @@ int get_sounddetect_sensor()  // 사운드 센서 Analog read
 	  return adcValue_sound;
 }
 
-static uint8_t sizecvt(const int read)
-{
-  /* digitalRead() and friends from wiringpi are defined as returning a value
-  < 256. However, they are returned as int() types. This is a safety function */
-
-  if (read > 255 || read < 0)
-  {
-    printf("Invalid data from wiringPi library\n");
-    exit(EXIT_FAILURE);
-  }
-  return (uint8_t)read;
-}
-
 int wiringPicheck(void)
 {
 	if (wiringPiSetup () == -1)
@@ -157,28 +144,5 @@ int wiringPicheck(void)
 		return 1 ;
 	}
   	return 0;
-}
-
-int get_light_sensor(void)
-{
-	int adcChannel_light = 1; // J4 connect - Analog pin / 0 : J3 connect
-	int adcValue_light;
-
-	// sets up the wiringPi library
-	/*if (wiringPiSetup () < 0) 
-	{
-		fprintf (stderr, "Unable to setup wiringPi: %s\n", strerror (errno));
-		return 1;
-	}*/
-	
-	/* 
-	if(digitalRead(LIGHTSEN_OUT))	//digital
-		return 1;
-	else //night
-		return 0;
-	*/
-	adcValue_light = read_mcp3208_adc(adcChannel_light);	// analog
-	return adcValue_light;
-
 }
 
