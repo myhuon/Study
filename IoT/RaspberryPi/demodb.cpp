@@ -18,9 +18,6 @@
 
 // #define CS_MCP3208  8        // BCM_GPIO_8
 
-#define SPI_CHANNEL 0
-#define SPI_SPEED   1000000   // 1MHz
-
 #define VCC         4.8       // Supply Voltage
 
 // define farm 
@@ -30,15 +27,16 @@
 #define PUMP	21 // BCM_GPIO 5
 #define FAN	22 // BCM_GPIO 6
 #define DCMOTOR 23 // BCM_GPIO 13
+
 #define RGBLEDPOWER  24 //BCM_GPIO 19
 #define RED	7
 #define GREEN	8
 #define BLUE	9
-#define LIGHTSEN_OUT 0  // BCM 17 - J12 connect
 
+#define LIGHTSEN_OUT 0  // BCM 17 - J12 connect	- lightDetect
+#define COLLISION 3  // J14 connect - nearDetect
 //#define MOTION_IN 2  // J13 Connector - motionDetect
 
-#define COLLISION 3  // J14 connect - nearDetect
 #define SPI_CHANNEL 0	// There are two soft channels in wPi library, which depend on CE0 or CE1  
 #define SPI_SPEED 1000000 //1Mhz
 
@@ -161,41 +159,37 @@ int main (void)
   return 0;
 }
 
-int get_neardetect_sensor()
+int get_neardetect_sensor()	// 근접 센서 digital read
 {
 
-    int result = -1;
+    	int result = -1;
 
 	// display counter value every second.
-    if(digitalRead(COLLISION) == 0)
-    {
-      result = 0;
-    }
-		if(digitalRead(COLLISION) == 1)
-    {
-      result = 1;
-    }
+  	if(digitalRead(COLLISION) == 0){
+      		result = 0;
+    	}
+	if(digitalRead(COLLISION) == 1){
+      		result = 1;
+    	}
 
-    printf("neardetect: %d\n", result);
-    return result;
+    	printf("neardetect: %d\n", result);
+    	return result;
 }
 
 int get_sounddetect_sensor()
 {
-  unsigned char adcChannel_sound = 0;
+  	unsigned char adcChannel_sound = 0;
 	int adcValue_sound = 0;
 
 	printf("start");
 
 //	pinMode(CS_MCP3208, OUTPUT);
 	
-
-		adcValue_sound = read_mcp3208_adc(adcChannel_sound);
-		printf("sound = %u\n", adcValue_sound);
+	adcValue_sound = read_mcp3208_adc(adcChannel_sound);
+	printf("sound = %u\n", adcValue_sound);
 		
-	  return adcValue_sound;
+	return adcValue_sound;
 }
-
 
 int get_temperature_sensor()
 {
@@ -304,7 +298,6 @@ int read_dht22_dat_temp()
   }
 }
 
-
 int get_humidity_sensor()
 {
 	int received_humid;
@@ -340,16 +333,16 @@ int read_dht22_dat_humid()
 
 	dht22_dat[0] = dht22_dat[1] = dht22_dat[2] = dht22_dat[3] = dht22_dat[4] = 0;
 
-  pinMode(DHTPIN, INPUT);
-  pullUpDnControl (DHTPIN, PUD_UP);
-  delay(1);
+  	pinMode(DHTPIN, INPUT);
+  	pullUpDnControl (DHTPIN, PUD_UP);
+  	delay(1);
 
-  pinMode(DHTPIN, OUTPUT);
-  digitalWrite(DHTPIN, LOW);
-  delayMicroseconds(1100);
+  	pinMode(DHTPIN, OUTPUT);
+ 	digitalWrite(DHTPIN, LOW);
+  	delayMicroseconds(1100);
 
-  // prepar
-  pinMode(DHTPIN, INPUT);
+  	// prepar
+  	pinMode(DHTPIN, INPUT);
 
 	// detect change and read data
 	for ( i=0; i< MAXTIMINGS; i++) 
@@ -395,7 +388,7 @@ int read_dht22_dat_humid()
 		printf("Humidity = %.2f %% Temperature = %.2f *C \n", h, t );
 		printf("Humidity = %d Temperature = %d\n", ret_humid, ret_temp);
 		
-    return ret_humid;
+    		return ret_humid;
 	}
 	else
 	{
@@ -411,7 +404,7 @@ int wiringPicheck(void)
 		fprintf(stdout, "Unable to start wiringPi: %s\n", strerror(errno));
 		return 1 ;
 	}
-  return 0;
+  	return 0;
 }
 
 int get_light_sensor(void)
@@ -426,13 +419,13 @@ int get_light_sensor(void)
 		return 1;
 	}*/
 	
-	/*  modified by Ryan
-	if(digitalRead(LIGHTSEN_OUT))	//day
+	/* 
+	if(digitalRead(LIGHTSEN_OUT))	//digital
 		return 1;
 	else //night
 		return 0;
 	*/
-	adcValue_light = read_mcp3208_adc(adcChannel_light);
+	adcValue_light = read_mcp3208_adc(adcChannel_light);	// analog
 	return adcValue_light;
 
 }
