@@ -9,7 +9,7 @@
 #include <wiringPi.h>
 
 #define LED1 5 //BCM_GPIO 24
-#define TC1 1 //BCM_GPIO 23 // Light
+#define TC1 0 //BCM_GPIO 17 - 조도 센서 digital GPIO : 0, analog channel : 1
 #define MAXTIMINGS 85
 #define DHTPIN 7
 #define FAN 22
@@ -50,14 +50,12 @@ static void mycb_numdata_handler(char *tagid, double numval)
 			{
 				printf("tagid=[%s], val=[%f]\n", tagid, numval);
 			//	digitalWrite(LED1, 1); //ON
-				
 				digitalWrite (TC1, 1) ; // On
 			}
 			else if(numval == 0)
 			{
 				printf("tagid=[%s], val=[%s]\n", tagid, numval);
 			//	digitalWrite(LED1, 0); //ON
-				
 				digitalWrite (TC1, 0) ; // Off
 			}
 	}
@@ -121,7 +119,6 @@ int main()
 	printf("dht11 Raspberry pi\n");
 	if(wiringPiSetup() == -1) exit(1);
 	
-	
 	local_loop = (1);
 	while(local_loop == (1))
 	{
@@ -153,7 +150,6 @@ int main()
 				
 				laststate = digitalRead(DHTPIN);
 				if(counter==255) break;
-				
 				
 				if((i>=4) && (i%2==0))
 				{
