@@ -92,25 +92,27 @@ public class PageRank
                         System.err.println("Usage: PageRank <in> <out>");
                         System.exit(2);
                 }
-                initPageRank(conf, n_pages);
+                
+                initPageRank(conf, n_pages);    
 
                 for(int i = 0; i < n_iter; i++)
                 {
-
+                        Job job = new Job(conf, "PageRank");
+                        job.setJarByClass(PageRank.class);
+                        job.setMapperClass(PageRankMapper.class);
+                        //job.setCombinerClass(PageRankReducer.class);
+                        job.setReducerClass(PageRankReducer.class);
+                        job.setOutputKeyClass(IntWritable.class);
+                        job.setOutputValueClass(DoubleWritable.class);
+                        job.setInputFormatClass(TextInputFormat.class);
+                        FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
+                        FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+                        FileSystem.get(job.getConfiguration()).delete( new Path(otherArgs[1]), true);
+                        job.waitForCompletion(true);
+                        
+                        updatePageRank(conf, n_pages);  // 새로운 페이지 랭크로 업데이트 후 broadcast
                 }
-                Job job = new Job(conf, "PageRank");
-                job.setJarByClass(PageRank.class);
-                job.setMapperClass(PageRankMapper.class);
-                //job.setCombinerClass(PageRankReducer.class);
-                job.setReducerClass(PageRankReducer.class);
-                job.setOutputKeyClass(IntWritable.class);
-                job.setOutputValueClass(DoubleWritable.class);
-                job.setInputFormatClass(TextInputFormat.class);
-                FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
-                FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
-                FileSystem.get(job.getConfiguration()).delete( new Path(otherArgs[1]), true);
-                job.waitForCompletion(true);
-                updatePageRank(conf, n_pages);
+                
                 System.exit(job.waitForCompletion(true) ? 0 : 1);
         }
 
