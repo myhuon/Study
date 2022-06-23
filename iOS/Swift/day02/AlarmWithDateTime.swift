@@ -2,9 +2,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    /*
-        updateTime 함수를 selector로 감싸서 시스템에 callback 함수로 넘겨준다.
-     */
     let timeSelector: Selector = #selector(ViewController.updateTime)
     let interval = 1.0
     var count = 0
@@ -32,7 +29,6 @@ class ViewController: UIViewController {
         alarmTime = formatter.string(from: datePickerView.date)
     }
     
-    // callback 함수, @objc는 objective-c를 사용하겠다는 의미.
     @objc func updateTime() {
         let date = NSDate()
         
@@ -40,6 +36,7 @@ class ViewController: UIViewController {
         formatter.dateFormat = "hh:mm:ss aaa"
         lblCurrentTime.text = "현재시간: " + formatter.string(from: date as Date) // as Date => NSDate 형태를 Date로 형변환 한다는 의미
         
+        // 현재시간과 선택한 알람시간이 같으면 배경화면 색을 red로 변경한다.
         let currentTime = formatter.string(for: date)
         if(alarmTime == currentTime){
             uiView.backgroundColor = UIColor.red
