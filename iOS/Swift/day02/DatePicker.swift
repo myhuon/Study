@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm EEE" // EEE는 요일을 나타냄
-        lblCurrentTime.text = "현재시간: " + formatter.string(from: date as Date)
+        lblCurrentTime.text = "현재시간: " + formatter.string(from: date as Date) // as Date => NSDate 형태를 Date로 형변환 한다는 의미 
     }
     
 }
