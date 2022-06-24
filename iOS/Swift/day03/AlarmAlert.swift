@@ -1,3 +1,4 @@
+
 import UIKit
 
 class ViewController: UIViewController {
@@ -57,19 +58,24 @@ class ViewController: UIViewController {
         lblCurrentTime.text = "현재시간: " + formatter.string(from: date as Date) // as Date => NSDate 형태를 Date로 형변환 한다는 의미
         
         let currentTime = formatter.string(for: date)
-        if (isAlarmTime==false) {
-            if(alarmTime == currentTime){
-                let alarmAlert = UIAlertController(title: "알림", message: "설정된 시간입니다!!!", preferredStyle: UIAlertController.Style.alert)
+        
+        if(alarmTime == currentTime){
+            //uiView.backgroundColor = UIColor.red
+            let alarmAlert = UIAlertController(title: "알림", message: "설정된 시간입니다!!!", preferredStyle: UIAlertController.Style.alert)
                 
-                let alarmAction = UIAlertAction(title: "네, 알겠습니다.", style: UIAlertAction.Style.default, handler: {
-                    ACTION in self.isAlarmTime = true
-                })
+            let alarmAction = UIAlertAction(title: "네, 알겠습니다.", style: UIAlertAction.Style.default, handler: {
+                ACTION in self.isAlarmTime = true
+            })
                 
+            if (isAlarmTime==false) {
                 alarmAlert.addAction(alarmAction)
                 present(alarmAlert, animated: true, completion: nil)
             }
-            else{
-                isAlarmTime = false
-            }
+        }
+        else{
+            //uiView.backgroundColor = UIColor.white
+            isAlarmTime = false
         }
     }
+    
+}
