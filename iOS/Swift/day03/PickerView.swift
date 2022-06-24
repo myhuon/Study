@@ -5,12 +5,13 @@
 
 import UIKit
 
+// 클래스 상속
 class ViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSource {
 
     let MAX_ARRAY_NUM = 10
     let PICKER_VIEW_COLUMN = 2
     let PICKER_VIEW_HEIGHT:CGFloat = 80
-    var imageArray = [UIImage?]()
+    var imageArray = [UIImage?]()   // 빈 이미지 배열 만들기
     var imageFileName = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg",
                          "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg"]
     
@@ -23,7 +24,7 @@ class ViewController: UIViewController,UIPickerViewDelegate, UIPickerViewDataSou
         // Do any additional setup after loading the view.
         for i in 0..<MAX_ARRAY_NUM{
             let image = UIImage(named: imageFileName[i])
-            imageArray.append(image)
+            imageArray.append(image)    // 배열에 항목 추가
         }
         
         lblImageFileName.text = imageFileName[0]
