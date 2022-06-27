@@ -21,6 +21,13 @@
  
  */
 
+/*
+    - Web loading을 위한 세팅
+    
+    'info.plist' 수정
+    => Information Property List -> App Transport Security Settings -> Allow Arbitary Loads -> YES
+*/
+
 import UIKit
 import WebKit
 
