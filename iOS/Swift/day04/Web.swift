@@ -79,6 +79,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     @IBAction func btnGotoUrl(_ sender: UIButton) {
+        let myUrl = checkUrl(txtUrl.text!)
+        txtUrl.text = " "
+        loadWebPage(myUrl)
     }
     
     @IBAction func btnGoSite1(_ sender: UIButton) {
