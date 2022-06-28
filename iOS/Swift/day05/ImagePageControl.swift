@@ -1,4 +1,8 @@
-@IBOutlet var imgView: UIImageView!
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet var imgView: UIImageView!
     @IBOutlet var pageControl: UIPageControl!
     
     var images = ["01.png", "02.png", "03.png", "04.png", "05.png", "06.png"]   // 이미지 파일명 배열
@@ -19,3 +23,5 @@
     @IBAction func pageChange(_ sender: UIPageControl) {
         imgView.image = UIImage(named: images[pageControl.currentPage]) // 현재페이지 인덱스를 이용해서 이미지 파일명을 배열에서 꺼내온다.
     }
+    
+}
