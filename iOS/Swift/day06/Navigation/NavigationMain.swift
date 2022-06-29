@@ -12,10 +12,18 @@ import UIKit
 class ViewController: UIViewController, EditDelegate { // EditViewController에 선언한 protocal 구현함.
     
     @IBOutlet var txMessage: UITextField!
+    @IBOutlet var imgView: UIImageView!
+    
+    let imgOn = UIImage(named: "lamp-on.png")
+    let imgOff = UIImage(named: "lamp-off.png")
+    
+    var isOn = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        imgView.image = imgOn
     }
 
     // 화면 전환 시 자동으로 호출되는 함수 (세그웨이 방향이 정방향일 때 사용)
@@ -32,10 +40,21 @@ class ViewController: UIViewController, EditDelegate { // EditViewController에 
         }
         
         editViewController.textMessage = txMessage.text!
+        editViewController.isOn = isOn
         editViewController.delegate = self  // delegate 역할은 ViewController로 지정
     }
     
     func didMessageEditDone(_ controller: EditViewController, message: String) {
         txMessage.text = message
+    }
+    
+    func didImageOnOffDone(_ controller: EditViewController, isOn: Bool) {
+        if isOn {
+            imgView.image = imgOn
+            self.isOn = true
+        } else {
+            imgView.image = imgOff
+            self.isOn = false
+        }
     }
 }
