@@ -1,9 +1,11 @@
 import UIKit
 
-// java로 말하면 interface와 같음. 프로토콜 안에 내용없는 함수와 필요시 멤버 변수 선언
+// java로 말하면 interface와 같음.
 protocol EditDelegate {
     func didMessageEditDone(_ controller: EditViewController, message: String)
     func didImageOnOffDone(_ controller: EditViewController, isOn: Bool)
+    func didImageZoomDone(_ controller: EditViewController, isZoom: Bool)
+    func didImageZoomOutDone(_ controller: EditViewController, isZoomOut: Bool)
 }
 
 class EditViewController: UIViewController {
@@ -12,6 +14,8 @@ class EditViewController: UIViewController {
     var textMessage: String = ""
     var delegate: EditDelegate?
     var isOn = false
+    var isZoom = false
+    var isZoomOut = false
     
     @IBOutlet var lblWay: UILabel!
     @IBOutlet var txMessage: UITextField!
@@ -31,6 +35,8 @@ class EditViewController: UIViewController {
             // ViewController에서 self로 ViewController로 지정한 delegate의 didMessgaeEditDone 함수에 메세지 전달
             delegate?.didMessageEditDone(self, message: txMessage.text!)
             delegate?.didImageOnOffDone(self, isOn: isOn)   // switch 바뀐 값으로 isOn 전송됨.
+            delegate?.didImageZoomDone(self, isZoom: isZoom)
+            delegate?.didImageZoomOutDone(self, isZoomOut: isZoomOut)
         }
         
         // navigationController : Navigation 생성 시 자동으로 생성되는 변수
@@ -45,6 +51,24 @@ class EditViewController: UIViewController {
         } else {
             isOn = false
         }
+    }
+    
+    @IBAction func imageZoom(_ sender: UIButton) {
+        if !isZoom {
+            isZoom = true
+        } else {
+            isZoom = false
+        }
+        isZoomOut = false
+    }
+    
+    @IBAction func imageZoomOut(_ sender: UIButton) {
+        if !isZoomOut {
+            isZoomOut = true
+        } else {
+            isZoomOut = false
+        }
+        isZoom = false
     }
     /*
     // MARK: - Navigation
