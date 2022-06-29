@@ -1,6 +1,6 @@
 import UIKit
 
-// java로 말하면 interface와 같음.
+// java로 말하면 interface와 같음. 프로토콜 안에 내용없는 함수와 필요시 멤버 변수 선언
 protocol EditDelegate {
     func didMessageEditDone(_ controller: EditViewController, message: String)
     func didImageOnOffDone(_ controller: EditViewController, isOn: Bool)
