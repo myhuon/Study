@@ -13,4 +13,4 @@
 : https://appicon.co/ 에서 이미지 넣고 Generate -> 다운로드 된 파일 압축 해제 
 
 ### 2. Xcode 설정
-: -> Assets.xcassets를 프로젝트 Assets.xcassets 위치에 복사 -> 대치 -> 자동으로 이미지 삽입됨.
+: Assets.xcassets를 프로젝트 Assets.xcassets 위치에 복사 -> 대치 -> AppIcon에 자동으로 이미지 삽입됨.
