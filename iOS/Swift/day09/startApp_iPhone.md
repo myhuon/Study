@@ -1,4 +1,4 @@
-# 아이폰으로 앱을 바로 실행하려고 할 시 
+# 📱 아이폰으로 앱을 바로 실행하려고 할 시 
   
 ### 1. Xcode 설정
 : xcode -> preferences -> accounts 등록 -> xcode project의 Signing & Capabilities -> Team을 등록한 나의 계정을 선택 
