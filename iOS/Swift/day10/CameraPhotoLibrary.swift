@@ -1,5 +1,5 @@
 /*
-
+https://www.instiz.net/name/32404951
 앱에서 Camera 사용하기 위한 info.plist 설정
 
 1. Privacy - Photo Library Additions Usage Description
