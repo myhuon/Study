@@ -1,12 +1,13 @@
 /*
 https://www.instiz.net/name/32404951
-앱에서 Camera 사용하기 위한 info.plist 설정
+    - 앱에서 Camera 사용하기 위한 info.plist 설정
+    1. Privacy - Photo Library Additions Usage Description
+    2. Privacy - Photo Library Usage Description
+    3. Privacy - Microphone Usage Description
+    4. Privacy - Camera Usage Description
 
-1. Privacy - Photo Library Additions Usage Description
-2. Privacy - Photo Library Usage Description
-3. Privacy - Microphone Usage Description
-4. Privacy - Camera Usage Description
-
+    - 아이폰이 안드로이드보다 보안이 좋은 이유
+    : 아이폰은 앱들이 샌드박스 형태 안에 있어서 앱들이 허가된 기능들만 쓸 수 있고, 다른 앱 사이에서도 제한이 많다.
 */
 
 // import : 다른 파일이나 클래스 추가
