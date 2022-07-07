@@ -11,7 +11,8 @@ class ViewController: UIViewController {
 
     @IBOutlet var imgView: UIImageView!
     @IBOutlet var pageControl: UIPageControl!
-
+    @IBOutlet var rotationRecogized: UIRotationGestureRecognizer!
+    
     var images = ["blueRabbit.jpeg", "rabbit.jpeg", "cuteRabbit.jpeg"]
     var currentPage = 0
     
@@ -40,10 +41,19 @@ class ViewController: UIViewController {
         // 핀치
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(ViewController.doPinch(_:)))
         self.view.addGestureRecognizer(pinch)
+        
+        // 핀치 회전
+        let rotationRecogniezer = UIRotationGestureRecognizer(target: self, action: #selector(rotationAction(_:)))
+        self.view.addGestureRecognizer(rotationRecogniezer)
     }
 
     @IBAction func pageChange(_ sender: UIPageControl) {
         imgView.image = UIImage(named: images[pageControl.currentPage])
+    }
+    
+    @objc func rotationAction(_ pinch: UIRotationGestureRecognizer) {
+        imgView.transform = imgView.transform.rotated(by: pinch.rotation)
+        pinch.rotation = 0.0
     }
     
     @objc func respondToSwipeGesture(_ gesture: UIGestureRecognizer) {
@@ -53,7 +63,6 @@ class ViewController: UIViewController {
                 if currentPage != 2 {
                     currentPage += 1
                 }
-                
                 imgView.image = UIImage(named: images[currentPage])
             case UISwipeGestureRecognizer.Direction.right :
                 if currentPage != 0 {
