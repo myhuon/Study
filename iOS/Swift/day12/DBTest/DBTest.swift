@@ -1,7 +1,20 @@
 /*
 
-1. sqlite는 'local'에 저장되는 데이터이다.
-2. 영구적으로 저장하기 위한 가장 기본적인 단위는 '파일'이다.
+    1. sqlite는 'local'에 저장되는 데이터이다.
+
+    2. 영구적으로 저장하기 위한 가장 기본적인 단위는 '파일'이다.
+
+    3. swift에서 생성자는 init()으로 생성한다.
+
+    ex) class a {
+        var one: String?
+        var two: Int?
+
+        init(one: String, two: Int) {
+            self.one = one
+            self.two = two
+        }
+    }
 
 */
 
