@@ -23,6 +23,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {  // 앱이 종료되기 전 호출되는 함수
+        dbManager.closeDatabase()
+    }
 
     @IBAction func btnOpenDatabase(_ sender: UIButton) {
         dbManager.openDatabase()
@@ -53,10 +57,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func btnCloseDatabase(_ sender: UIButton) {
-        dbManager.closeDatabase()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
         dbManager.closeDatabase()
     }
     
