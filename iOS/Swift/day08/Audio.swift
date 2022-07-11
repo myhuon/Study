@@ -50,6 +50,15 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         }
         
     }
+  
+    func selectAudioFile() {
+        if !isRecordMode {
+            audioFile = Bundle.main.url(forResource: "Sicilian_Breeze", withExtension: "mp3")
+        } else {
+            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]  // Mac에 기본적으로 생성되어있는 user 파일에 저장한다. (enumeration 타입..?)
+            audioFile = documentDirectory.appendingPathComponent("recordFile.m4a")
+        }
+    }
     
     func initPlay() {
         do {
@@ -192,12 +201,5 @@ class ViewController: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDe
         setPlayButtons(true, pause: false, stop: false)
     }
     
-    func selectAudioFile() {
-        if !isRecordMode {
-            audioFile = Bundle.main.url(forResource: "Sicilian_Breeze", withExtension: "mp3")
-        } else {
-            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]  // Mac에 기본적으로 생성되어있는 user 파일에 저장한다. (enumeration 타입..?)
-            audioFile = documentDirectory.appendingPathComponent("recordFile.m4a")
-        }
-    }
+
 }
